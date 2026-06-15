@@ -18,7 +18,8 @@ html { scroll-padding-top: 50px; }
 p { margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
 h1,h2,h3 { font-family: 'DM Serif Display', Georgia, serif; }
 .cover { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; }
-.cover-bg { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; }
+.cover-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.5); z-index: 0; }
+.cover-rendering-tag { position: absolute; bottom: 14px; right: 16px; z-index: 3; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(15,39,69,0.5); padding: 4px 10px; border-radius: 4px; }
 .cover-content { position: relative; z-index: 2; padding: 60px 40px; max-width: 860px; }
 .cover-logo { width: 300px; margin: 0 auto 30px; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
 .cover-label { font-size: 13px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: #C5A258; margin-bottom: 18px; }
@@ -196,7 +197,8 @@ td.num, th.num { text-align: right; }
 
 <!-- COVER -->
 <div class="cover">
-  <div class="cover-bg" style="background:linear-gradient(135deg,#24557f 0%,#1B3A5C 45%,#0F2745 100%);"></div>
+  <div class="cover-bg" style="background-image:url('images/cover_hero.jpg');"></div>
+  <div class="cover-rendering-tag">Architect's Rendering</div>
   <div class="cover-content">
     <img src="images/LAAA_Team_White.png" class="cover-logo" alt="LAAA Team">
     <div class="cover-label">Confidential Broker Opinion of Value</div>
@@ -207,7 +209,7 @@ td.num, th.num { text-align: right; }
       <div class="cover-stat"><span class="cover-stat-value">4</span><span class="cover-stat-label">Units</span></div>
       <div class="cover-stat"><span class="cover-stat-value">4,918</span><span class="cover-stat-label">Square Feet</span></div>
       <div class="cover-stat"><span class="cover-stat-value">New</span><span class="cover-stat-label">2026 Construction</span></div>
-      <div class="cover-stat"><span class="cover-stat-value">$189K</span><span class="cover-stat-label">Market GSR</span></div>
+      <div class="cover-stat"><span class="cover-stat-value">6,250</span><span class="cover-stat-label">Lot SF</span></div>
     </div>
     <div class="cover-headshots">
       <div class="cover-headshot-wrap"><img class="cover-headshot" src="images/Glen_Scher.png" alt="Glen Scher"><div class="cover-headshot-name">Glen Scher</div><div class="cover-headshot-title">Senior Managing Director Investments</div></div>
@@ -340,6 +342,10 @@ td.num, th.num { text-align: right; }
       </div>
     </div>
     <div class="inv-right">
+      <div style="border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);position:relative;">
+        <img src="images/property_secondary.jpg" alt="4942 N Topanga Canyon Blvd - architect's rendering" style="width:100%;height:220px;object-fit:cover;display:block;">
+        <span style="position:absolute;bottom:8px;right:10px;font-size:9px;letter-spacing:0.5px;text-transform:uppercase;color:#fff;background:rgba(15,39,69,0.6);padding:3px 8px;border-radius:3px;">Architect's Rendering</span>
+      </div>
       <div class="rent-opinion">
         <h4>Broker Market-Rent Opinion (per unit)</h4>
         <table class="info-table"><tbody>
@@ -476,7 +482,7 @@ td.num, th.num { text-align: right; }
 <div class="page-break-marker"></div>
 <div class="section section-alt" id="on-market">
   <div class="section-title">On-Market Comparables</div>
-  <div class="section-subtitle">Active Demand &amp; the Pricing Ceiling</div>
+  <div class="section-subtitle">Active Demand &amp; Pricing Context</div>
   <div class="section-divider"></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Submarket</th><th class="num">Yr</th><th class="num">Units</th><th class="num">List Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th>Status</th></tr></thead>
@@ -485,11 +491,10 @@ td.num, th.num { text-align: right; }
 <tr><td><a href='https://www.zillow.com/homedetails/5622-Willowcrest-Ave-North-Hollywood-CA-91601/20040689_zpid/' target='_blank' rel='noopener'>5622 Willowcrest Ave</a></td><td>North Hollywood</td><td class='num'>2025</td><td class='num'>4</td><td class='num'>$2,250,000</td><td class='num'>$562,500</td><td class='num'>$442</td><td>Pending</td></tr>
 <tr><td><a href='https://www.zillow.com/homedetails/19453-Strathern-St-Reseda-CA-91335/19906466_zpid/' target='_blank' rel='noopener'>19453 Strathern St</a></td><td>Reseda</td><td class='num'>2026</td><td class='num'>4</td><td class='num'>$2,495,000</td><td class='num'>$623,750</td><td class='num'>$586</td><td>Active &middot; Zillow</td></tr>
 <tr><td><a href='https://www.zillow.com/homedetails/5750-Kester-Ave-Van-Nuys-CA-91411/19972492_zpid/' target='_blank' rel='noopener'>5750 Kester Ave</a></td><td>Van Nuys</td><td class='num'>2021</td><td class='num'>4</td><td class='num'>$3,460,000</td><td class='num'>$865,000</td><td class='num'>$433</td><td>Active &middot; Zillow</td></tr>
-<tr><td><a href='https://www.zillow.com/homedetails/11026-Hortense-St-North-Hollywood-CA-91602/20018699_zpid/' target='_blank' rel='noopener'>11026 Hortense St</a></td><td>Toluca Lake</td><td class='num'>2025</td><td class='num'>4</td><td class='num'>$5,395,000</td><td class='num'>$1,348,750</td><td class='num'>$897</td><td>Active &middot; 111 DOM</td></tr>
-<tr class='summary'><td colspan='4'><strong>Average (6 active comps)</strong></td><td class='num'><strong>$3,087,500</strong></td><td class='num'><strong>$771,875</strong></td><td class='num'><strong>$562</strong></td><td>-</td></tr>
+<tr class='summary'><td colspan='4'><strong>Average (5 active comps)</strong></td><td class='num'><strong>$2,626,000</strong></td><td class='num'><strong>$656,500</strong></td><td class='num'><strong>$495</strong></td><td>-</td></tr>
 </tbody>
   </table></div>
-  <p class="narrative">The most directly relevant active comp is <strong>6420-6422 Hanna Ave</strong> in Woodland Hills - a 2025 new-construction four-unit townhome listed at $2,525,000 ($631,250/unit, $482/SF) - the closest read on the subject's own submarket. The two pending NoHo comps confirm active buyer demand when four-unit product is priced inside the comp range; one went pending in just two days. The Strathern St listing in Reseda (2026, $623,750/unit) and the Kester Ave listing in Van Nuys (2021, $865,000/unit) bracket the West/central-Valley active range. The Hortense compound in Toluca Lake is the cautionary counterpoint: listed aspirationally at $5,995,000, reduced to $5,395,000, and still unsold after 111 days. The subject at $2,600,000 is deliberately positioned to clear, not to sit - just above the Hanna Ave per-unit basis to reflect the subject's stronger 3BR-weighted unit mix.</p>
+  <p class="narrative">The most directly relevant active comp is <strong>6420-6422 Hanna Ave</strong> in Woodland Hills - a 2025 new-construction four-unit townhome listed at $2,525,000 ($631,250/unit, $482/SF) - the closest read on the subject's own submarket. The two pending NoHo comps confirm active buyer demand when four-unit product is priced inside the comp range; one went pending in just two days. The Strathern St listing in Reseda (2026, $623,750/unit) and the Kester Ave listing in Van Nuys (2021, $865,000/unit) bracket the West/central-Valley active range. The active set averages $656,500/unit; the subject at $2,600,000 ($650,000/unit) is deliberately positioned to clear - just above the directly comparable Hanna Ave basis and inside the active range, reflecting the subject's stronger 3BR-weighted unit mix.</p>
 </div>
 
 <!-- FINANCIAL ANALYSIS -->
