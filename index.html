@@ -148,7 +148,15 @@ td.num, th.num { text-align: right; }
 .cpin .lbl { display: none; position: absolute; left: 50%; bottom: 130%; transform: translateX(-50%); white-space: nowrap; background: #1B3A5C; color: #fff; font-size: 11px; line-height: 1.3; padding: 5px 9px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 10; pointer-events: none; }
 .cpin .lbl:after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1B3A5C; }
 .cpin:hover .lbl, .cpin:focus .lbl { display: block; }
-.cpin:focus { outline: 2px solid #C5A258; outline-offset: 1px; }
+.cpin:focus { outline: none; }
+.zmap { position: relative; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.zmap-vp { overflow: hidden; border-radius: 8px; cursor: grab; touch-action: none; }
+.zmap-vp.grabbing { cursor: grabbing; }
+.zmap-inner { position: relative; transform-origin: 0 0; }
+.zmap-inner > img { width: 100%; display: block; -webkit-user-drag: none; user-select: none; }
+.zmap-ctrl { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 20; }
+.zmap-ctrl button { width: 34px; height: 34px; border: none; background: #1B3A5C; color: #fff; font-size: 18px; line-height: 1; border-radius: 6px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.zmap-ctrl button:hover { background: #C5A258; color: #1B3A5C; }
 .page-break-marker { height: 4px; background: repeating-linear-gradient(90deg, #ddd 0, #ddd 8px, transparent 8px, transparent 16px); max-width: 1100px; margin: 0 auto; }
 .footer { background: #1B3A5C; color: #fff; padding: 50px 40px; text-align: center; }
 .footer-logo { width: 200px; margin-bottom: 30px; }
@@ -186,7 +194,8 @@ td.num, th.num { text-align: right; }
 @media print {
   @page { size: letter landscape; margin: 0.4in 0.5in; }
   body { font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .toc-nav, .embed-map-wrap, .page-break-marker, #loc-embed, .cpin { display: none !important; }
+  .toc-nav, .embed-map-wrap, .page-break-marker, #loc-embed, .cpin, .zmap-ctrl { display: none !important; }
+  .zmap-inner { transform: none !important; }
   .print-only-map { display: block !important; width: 100%; height: auto; border-radius: 4px; }
   .cover { min-height: 7.5in; page-break-after: always; }
   .cover-headshots { display: flex !important; }
@@ -223,6 +232,7 @@ td.num, th.num { text-align: right; }
     <div class="cover-headshots">
       <div class="cover-headshot-wrap"><img class="cover-headshot" src="images/Glen_Scher.png" alt="Glen Scher"><div class="cover-headshot-name">Glen Scher</div><div class="cover-headshot-title">Senior Managing Director Investments</div></div>
       <div class="cover-headshot-wrap"><img class="cover-headshot" src="images/Filip_Niculete.png" alt="Filip Niculete"><div class="cover-headshot-name">Filip Niculete</div><div class="cover-headshot-title">Senior Managing Director Investments</div></div>
+      <div class="cover-headshot-wrap"><img class="cover-headshot" src="images/Floyd_Shaheen.png" alt="Floyd Shaheen"><div class="cover-headshot-name">Floyd Shaheen</div><div class="cover-headshot-title">Senior Director Investments</div></div>
     </div>
     <p class="client-greeting" id="client-greeting">Prepared Exclusively for Samuel Cohen</p>
     <p style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:8px;">Financial Fitness LLC &middot; New Construction Duplex + 2 ADUs &middot; June 2026</p>
@@ -327,7 +337,21 @@ td.num, th.num { text-align: right; }
       <li>Inclusion in the next All-Inventory send</li>
       <li>Quarterly 1031 Exchange Opportunities newsletter</li></ul></div>
   </div>
-  <div class="platform-strip"><span class="platform-strip-label">Advertised On</span><span class="platform-name">THEMLS</span><span class="platform-name">LOOPNET</span><span class="platform-name">CREXI</span><span class="platform-name">COSTAR</span><span class="platform-name">WWW.LAAA.COM</span></div>
+  <div class="platform-strip"><span class="platform-strip-label">Advertised On</span><span class="platform-name">THEMLS</span><span class="platform-name">LOOPNET</span><span class="platform-name">CREXI</span><span class="platform-name">COSTAR</span><span class="platform-name">ZILLOW</span><span class="platform-name">REDFIN</span><span class="platform-name">BREVITAS</span><span class="platform-name">APARTMENTBUILDINGS.COM</span><span class="platform-name">WWW.LAAA.COM</span></div>
+  <div class="mkt-channel" style="margin-top:20px;">
+    <h4>Listing Links</h4>
+    <p style="font-size:11px;color:#6B7280;margin:0 0 10px;">Direct links to the syndicated listings (activated at launch):</p>
+    <ul style="column-count:2;column-gap:28px;">
+      <li>Redfin &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>Zillow &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>MLS &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>Crexi &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>Brevitas &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>LAAA Team &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>ApartmentBuildings.com &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+      <li>CoStar / LoopNet &mdash; <a href="#" onclick="return false;" style="color:#3F6FA8;">View listing</a></li>
+    </ul>
+  </div>
 </div>
 
 <!-- INVESTMENT OVERVIEW -->
@@ -473,33 +497,30 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Sale Comparables</div>
   <div class="section-subtitle">Recent Sold New-Construction Four-Unit Properties</div>
   <div class="section-divider"></div>
-  <div class="cmap">
-    <img src="images/comp_map.png" alt="Combined map: subject, sale comps, on-market comps, rent comps">
-    <a class="cpin" style="left:23.67%;top:65.53%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4942+Topanga+Canyon+Blvd+Woodland+Hills+CA"><span class="lbl">SUBJECT &mdash; 4942 N Topanga Canyon Blvd &middot; New 2026 &middot; $2,600,000</span></a>
-    <a class="cpin" style="left:82.34%;top:65.96%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=10706+Camarillo+St+North+Hollywood+CA"><span class="lbl">Sale &middot; 10706 Camarillo St &middot; $2,800,000 &middot; 5.37% cap</span></a>
-    <a class="cpin" style="left:82.42%;top:56.14%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5648+Cartwright+Ave+North+Hollywood+CA"><span class="lbl">Sale &middot; 5648 Cartwright Ave &middot; $2,775,000 &middot; 5.82% cap</span></a>
-    <a class="cpin" style="left:82.70%;top:56.37%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5626+Willowcrest+Ave+North+Hollywood+CA"><span class="lbl">Sale &middot; 5626 Willowcrest Ave &middot; $2,525,000 &middot; 4.93% cap</span></a>
-    <a class="cpin" style="left:78.34%;top:58.22%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=11447+Cumpston+St+North+Hollywood+CA"><span class="lbl">Sale &middot; 11447 Cumpston St &middot; $3,350,000 &middot; 5.09% cap</span></a>
-    <a class="cpin" style="left:23.47%;top:52.67%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=6420+Hanna+Ave+Woodland+Hills+CA"><span class="lbl">On-Market &middot; 6420 Hanna Ave &middot; $2,525,000 &middot; Active</span></a>
-    <a class="cpin" style="left:80.40%;top:55.10%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5743+Case+Ave+North+Hollywood+CA"><span class="lbl">On-Market &middot; 5743 Case Ave &middot; $2,400,000 &middot; Pending</span></a>
-    <a class="cpin" style="left:82.70%;top:56.62%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5622+Willowcrest+Ave+North+Hollywood+CA"><span class="lbl">On-Market &middot; 5622 Willowcrest Ave &middot; $2,250,000 &middot; Pending</span></a>
-    <a class="cpin" style="left:35.48%;top:29.33%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=19453+Strathern+St+Reseda+CA"><span class="lbl">On-Market &middot; 19453 Strathern St &middot; $2,495,000 &middot; Active</span></a>
-    <a class="cpin" style="left:59.72%;top:54.71%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5750+Kester+Ave+Van+Nuys+CA"><span class="lbl">On-Market &middot; 5750 Kester Ave &middot; $3,460,000 &middot; Active</span></a>
-    <a class="cpin" style="left:23.39%;top:59.52%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=22041+Costanso+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 22041 Costanso St &middot; 3BR/2.5BA 1,624 SF &middot; $4,300/mo</span></a>
-    <a class="cpin" style="left:24.28%;top:54.77%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=21820+Marylee+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 21820 Marylee St &middot; 3BR/3BA 1,459 SF &middot; $3,900/mo</span></a>
-    <a class="cpin" style="left:19.00%;top:70.66%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4406+Coloma+Ave+Woodland+Hills+CA"><span class="lbl">Rent &middot; 4406 Coloma Ave &middot; 2BR/2BA 830 SF &middot; $3,395/mo</span></a>
-    <a class="cpin" style="left:33.57%;top:47.03%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=19803+Gilmore+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 19803 Gilmore St &middot; 2BR/2BA 1,000 SF &middot; $3,750/mo</span></a>
-    <a class="cpin" style="left:17.30%;top:52.92%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5946+Woodlake+Ave+Woodland+Hills+CA"><span class="lbl">Rent &middot; 5946 Woodlake Ave &middot; 2BR/2BA 883 SF &middot; $2,900/mo</span></a>
+  <div class="zmap" data-max="6">
+    <div class="zmap-vp"><div class="zmap-inner">
+      <img src="images/sales_map.png" alt="Map of subject, recently sold comps, and on-market comps">
+      <a class="cpin" style="left:20.61%;top:67.83%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4942+Topanga+Canyon+Blvd+Woodland+Hills+CA"><span class="lbl">SUBJECT &mdash; 4942 N Topanga Canyon Blvd &middot; New 2026 &middot; $2,600,000</span></a>
+      <a class="cpin" style="left:79.28%;top:68.26%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=10706+Camarillo+St+North+Hollywood+CA"><span class="lbl">Sold &middot; 10706 Camarillo St &middot; Toluca Lake &middot; $2,800,000 &middot; 5.37% cap</span></a>
+      <a class="cpin" style="left:79.36%;top:58.44%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5648+Cartwright+Ave+North+Hollywood+CA"><span class="lbl">Sold &middot; 5648 Cartwright Ave &middot; $2,775,000 &middot; 5.82% cap</span></a>
+      <a class="cpin" style="left:79.64%;top:58.67%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5626+Willowcrest+Ave+North+Hollywood+CA"><span class="lbl">Sold &middot; 5626 Willowcrest Ave &middot; $2,525,000 &middot; 4.93% cap</span></a>
+      <a class="cpin" style="left:75.28%;top:60.52%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=11447+Cumpston+St+North+Hollywood+CA"><span class="lbl">Sold &middot; 11447 Cumpston St &middot; $3,350,000 &middot; 5.09% cap</span></a>
+      <a class="cpin" style="left:20.41%;top:54.97%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=6420+Hanna+Ave+Woodland+Hills+CA"><span class="lbl">On-Market &middot; 6420 Hanna Ave &middot; Woodland Hills &middot; $2,525,000 &middot; Active</span></a>
+      <a class="cpin" style="left:77.33%;top:57.40%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5743+Case+Ave+North+Hollywood+CA"><span class="lbl">On-Market &middot; 5743 Case Ave &middot; $2,400,000 &middot; Pending</span></a>
+      <a class="cpin" style="left:79.64%;top:58.92%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5622+Willowcrest+Ave+North+Hollywood+CA"><span class="lbl">On-Market &middot; 5622 Willowcrest Ave &middot; $2,250,000 &middot; Pending</span></a>
+      <a class="cpin" style="left:32.42%;top:31.63%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=19453+Strathern+St+Reseda+CA"><span class="lbl">On-Market &middot; 19453 Strathern St &middot; Reseda &middot; $2,495,000 &middot; Active</span></a>
+      <a class="cpin" style="left:56.66%;top:57.01%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5750+Kester+Ave+Van+Nuys+CA"><span class="lbl">On-Market &middot; 5750 Kester Ave &middot; Van Nuys &middot; $3,460,000 &middot; Active</span></a>
+    </div></div>
+    <div class="zmap-ctrl"><button type="button" data-z="in" aria-label="Zoom in">+</button><button type="button" data-z="out" aria-label="Zoom out">&minus;</button><button type="button" data-z="reset" aria-label="Reset view" title="Reset view">&#8635;</button></div>
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:12px;color:#444;margin-bottom:4px;">
-    <strong style="color:#1B3A5C;">Combined Comparables Map</strong>
+    <strong style="color:#1B3A5C;">Sales &amp; On-Market Comparables Map</strong>
     <span><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#C5A258;border:2px solid #1B3A5C;vertical-align:middle;margin-right:5px;"></span>Subject</span>
-    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1B3A5C;vertical-align:middle;margin-right:5px;"></span>Sale comps (4)</span>
-    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#E0763C;vertical-align:middle;margin-right:5px;"></span>On-market comps (5)</span>
-    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2E8B57;vertical-align:middle;margin-right:5px;"></span>Rent comps (5)</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1B3A5C;vertical-align:middle;margin-right:5px;"></span>Recently sold (4)</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#E0763C;vertical-align:middle;margin-right:5px;"></span>On-market (5)</span>
   </div>
-  <p style="font-size:10px;color:#999;margin:0 0 18px;"><strong>Hover or tap any pin</strong> to see its address &amp; details; click to open it in Google Maps. Rent comps detailed in Financial Analysis; sale &amp; on-market comps tabled below.</p>
-  <p class="narrative">The four most recent new-construction and newer-vintage four-unit sales across the San Fernando Valley form the valuation backbone. These are premium central- and east-Valley submarkets (Toluca Lake / North Hollywood); the subject's Woodland Hills basis is set at a measured discount to their per-unit median, reconciled against the West Valley active set below. As the combined map shows, the subject's <em>rental</em> market is intensely local (the green Woodland Hills rent comps cluster around the site), while the strongest new-construction <em>sale</em> evidence sits in the central Valley.</p>
+  <p style="font-size:10px;color:#999;margin:0 0 18px;"><strong>Drag to pan, use +/&minus; (or double-click) to zoom</strong>; hover or tap any pin for its address &amp; details, click to open in Google Maps. Rent comparables are mapped separately in the Financial Analysis section.</p>
+  <p class="narrative">The four most recent new-construction and newer-vintage four-unit sales across the San Fernando Valley form the valuation backbone. These are premium central- and east-Valley submarkets (Toluca Lake / North Hollywood); the subject's Woodland Hills basis is set at a measured discount to their per-unit median, reconciled against the West Valley active set below.</p>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Submarket</th><th class="num">Yr</th><th class="num">Sale Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">Cap</th><th class="num">Sold</th></tr></thead>
     <tbody><tr><td><a href='https://www.google.com/maps/place/10706+Camarillo+St,+North+Hollywood,+CA+91602/' target='_blank' rel='noopener'>10706 Camarillo St</a> &middot; <a href='https://www.apartments.com/10706-camarillo-st-los-angeles-ca/tmg1pbc/' target='_blank' rel='noopener' style='font-size:11px;color:#3F6FA8;text-decoration:none;'>photos &#8599;</a></td><td>Toluca Lake</td><td class='num'>2017</td><td class='num'>$2,800,000</td><td class='num'>$700,000</td><td class='num'>$474</td><td class='num'>5.37%</td><td class='num'>Jul 2025</td></tr>
@@ -554,7 +575,25 @@ td.num, th.num { text-align: right; }
   </table></div>
 
   <h3 class="sub-heading"><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#2E8B57;vertical-align:middle;margin-right:8px;"></span>Rent Comparables</h3>
-  <p class="narrative" style="margin-bottom:12px;">Active and recent Woodland Hills (91364 / 91367) rentals supporting the broker rent opinion. These are the <strong>green markers</strong> on the combined comparables map above. New-construction product like the subject leases at the upper end of each band.</p>
+  <p class="narrative" style="margin-bottom:12px;">Active and recent Woodland Hills (91364 / 91367) rentals supporting the broker rent opinion, mapped below relative to the subject. New-construction product like the subject leases at the upper end of each band.</p>
+  <div class="zmap" data-max="6">
+    <div class="zmap-vp"><div class="zmap-inner">
+      <img src="images/rent_map.png" alt="Map of subject and Woodland Hills rent comparables">
+      <a class="cpin" style="left:45.77%;top:62.48%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4942+Topanga+Canyon+Blvd+Woodland+Hills+CA"><span class="lbl">SUBJECT &mdash; 4942 N Topanga Canyon Blvd &middot; New 2026 &middot; Duplex + 2 ADUs</span></a>
+      <a class="cpin" style="left:45.08%;top:51.26%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=22041+Costanso+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 22041 Costanso St &middot; 3BR/2.5BA 1,624 SF &middot; $4,300/mo</span></a>
+      <a class="cpin" style="left:47.23%;top:42.39%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=21820+Marylee+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 21820 Marylee St &middot; 3BR/3BA 1,459 SF &middot; $3,900/mo</span></a>
+      <a class="cpin" style="left:34.55%;top:72.06%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4406+Coloma+Ave+Woodland+Hills+CA"><span class="lbl">Rent &middot; 4406 Coloma Ave &middot; 2BR/2BA 830 SF &middot; $3,395/mo</span></a>
+      <a class="cpin" style="left:69.53%;top:27.94%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=19803+Gilmore+St+Woodland+Hills+CA"><span class="lbl">Rent &middot; 19803 Gilmore St &middot; 2BR/2BA 1,000 SF &middot; $3,750/mo</span></a>
+      <a class="cpin" style="left:30.47%;top:38.93%" tabindex="0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=5946+Woodlake+Ave+Woodland+Hills+CA"><span class="lbl">Rent &middot; 5946 Woodlake Ave &middot; 2BR/2BA 883 SF &middot; $2,900/mo</span></a>
+    </div></div>
+    <div class="zmap-ctrl"><button type="button" data-z="in" aria-label="Zoom in">+</button><button type="button" data-z="out" aria-label="Zoom out">&minus;</button><button type="button" data-z="reset" aria-label="Reset view" title="Reset view">&#8635;</button></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:12px;color:#444;margin:0 0 4px;">
+    <strong style="color:#1B3A5C;">Rent Comparables Map</strong>
+    <span><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#C5A258;border:2px solid #1B3A5C;vertical-align:middle;margin-right:5px;"></span>Subject</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2E8B57;vertical-align:middle;margin-right:5px;"></span>Rent comps (5)</span>
+  </div>
+  <p style="font-size:10px;color:#999;margin:0 0 16px;"><strong>Drag to pan, use +/&minus; (or double-click) to zoom</strong>; hover or tap any pin for its address &amp; rent.</p>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Submarket</th><th>BD / BA</th><th class="num">SF</th><th class="num">Rent/Mo</th><th class="num">Rent/SF</th></tr></thead>
     <tbody>
@@ -703,6 +742,7 @@ td.num, th.num { text-align: right; }
   <div class="footer-team">
     <div class="footer-person"><img src="images/Glen_Scher.png" class="footer-headshot" alt="Glen Scher"><div class="footer-name">Glen Scher</div><div class="footer-title">Senior Managing Director Investments</div><div class="footer-contact"><a href="tel:8182122808">(818) 212-2808</a><br><a href="mailto:Glen.Scher@marcusmillichap.com">Glen.Scher@marcusmillichap.com</a><br>CA License: 01962976</div></div>
     <div class="footer-person"><img src="images/Filip_Niculete.png" class="footer-headshot" alt="Filip Niculete"><div class="footer-name">Filip Niculete</div><div class="footer-title">Senior Managing Director Investments</div><div class="footer-contact"><a href="tel:8182122748">(818) 212-2748</a><br><a href="mailto:Filip.Niculete@marcusmillichap.com">Filip.Niculete@marcusmillichap.com</a><br>CA License: 01905352</div></div>
+    <div class="footer-person"><img src="images/Floyd_Shaheen.png" class="footer-headshot" alt="Floyd Shaheen"><div class="footer-name">Floyd Shaheen</div><div class="footer-title">Senior Director Investments</div><div class="footer-contact"><a href="tel:8182122667">(818) 212-2667</a> direct &middot; <a href="tel:8187033735">(818) 703-3735</a> mobile<br><a href="mailto:floyd.shaheen@marcusmillichap.com">floyd.shaheen@marcusmillichap.com</a><br><a href="https://www.floydgroupcre.com" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);">www.FloydGroupCRE.com</a><br>CA License: 01960743</div></div>
   </div>
   <div class="footer-office">16830 Ventura Blvd, Ste. 100, Encino, CA 91436 | <a href="https://www.laaa.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">www.laaa.com</a></div>
   <div class="footer-disclaimer">This information has been secured from sources we believe to be reliable, but we make no representations or warranties, expressed or implied, as to the accuracy of the information. Buyer must verify the information and bears all risk for any inaccuracies. Marcus &amp; Millichap Real Estate Investment Services, Inc. | License: CA 01930580.</div>
@@ -727,6 +767,47 @@ function updateActiveTocLink() {
   tocLinks.forEach(function(l) { l.classList.remove('toc-active'); }); if (cur) cur.classList.add('toc-active');
 }
 window.addEventListener('scroll', updateActiveTocLink); updateActiveTocLink();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.zmap').forEach(function(zm){
+    var vp=zm.querySelector('.zmap-vp'), inner=zm.querySelector('.zmap-inner');
+    var max=parseFloat(zm.getAttribute('data-max')||'5'), scale=1, tx=0, ty=0, moved=false;
+    function clamp(){
+      if(scale<=1){tx=0;ty=0;return;}
+      var w=vp.clientWidth, h=vp.clientHeight;
+      tx=Math.min(0,Math.max(w-w*scale,tx));
+      ty=Math.min(0,Math.max(h-inner.offsetHeight*scale,ty));
+    }
+    function apply(){ clamp(); inner.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
+    function zoomAt(f,cx,cy){
+      var ns=Math.min(max,Math.max(1,scale*f)); if(ns===scale)return;
+      tx=cx-(cx-tx)*(ns/scale); ty=cy-(cy-ty)*(ns/scale); scale=ns; apply();
+    }
+    zm.querySelectorAll('.zmap-ctrl button').forEach(function(b){
+      b.addEventListener('click',function(e){
+        e.preventDefault(); var w=vp.clientWidth,h=vp.clientHeight,z=b.getAttribute('data-z');
+        if(z==='in')zoomAt(1.5,w/2,h/2); else if(z==='out')zoomAt(1/1.5,w/2,h/2); else {scale=1;tx=0;ty=0;apply();}
+      });
+    });
+    vp.addEventListener('dblclick',function(e){ var r=vp.getBoundingClientRect(); zoomAt(1.6,e.clientX-r.left,e.clientY-r.top); });
+    var dragging=false,sx,sy;
+    vp.addEventListener('pointerdown',function(e){
+      if(scale<=1)return; dragging=true; moved=false; sx=e.clientX; sy=e.clientY;
+      vp.classList.add('grabbing'); try{vp.setPointerCapture(e.pointerId);}catch(_){}
+    });
+    vp.addEventListener('pointermove',function(e){
+      if(!dragging)return; var dx=e.clientX-sx, dy=e.clientY-sy;
+      if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+      tx+=dx; ty+=dy; sx=e.clientX; sy=e.clientY; apply();
+    });
+    function end(){ if(dragging){dragging=false; vp.classList.remove('grabbing');} }
+    vp.addEventListener('pointerup',end); vp.addEventListener('pointercancel',end);
+    zm.querySelectorAll('.cpin').forEach(function(p){ p.addEventListener('click',function(e){ if(moved)e.preventDefault(); }); });
+    window.addEventListener('resize',apply); apply();
+  });
+})();
 </script>
 </body>
 </html>
