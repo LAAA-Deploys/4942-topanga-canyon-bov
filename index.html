@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.6; background: #fff; }
+body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.6; background: #fff; overflow-x: hidden; }
 html { scroll-padding-top: 50px; }
 p { margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
 h1,h2,h3 { font-family: 'DM Serif Display', Georgia, serif; }
@@ -144,13 +144,13 @@ td.num, th.num { text-align: right; }
 .print-only-map { display: none; }
 .cmap { position: relative; display: block; width: 100%; margin-bottom: 10px; }
 .cmap > img { width: 100%; display: block; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-.cpin { position: absolute; width: 26px; height: 26px; border-radius: 50%; transform: translate(-50%,-50%); cursor: pointer; z-index: 2; }
-.cpin .lbl { display: none; position: absolute; left: 50%; bottom: 130%; transform: translateX(-50%); white-space: nowrap; background: #1B3A5C; color: #fff; font-size: 11px; line-height: 1.3; padding: 5px 9px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 10; pointer-events: none; }
+.cpin { position: absolute; width: 30px; height: 30px; border-radius: 50%; transform: translate(-50%,-50%); cursor: pointer; z-index: 2; -webkit-tap-highlight-color: transparent; }
+.cpin .lbl { display: none; position: absolute; left: 50%; bottom: 130%; transform: translateX(-50%); white-space: normal; width: max-content; max-width: 200px; text-align: center; background: #1B3A5C; color: #fff; font-size: 11px; line-height: 1.35; padding: 6px 10px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 10; pointer-events: none; }
 .cpin .lbl:after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1B3A5C; }
 .cpin:hover .lbl, .cpin:focus .lbl { display: block; }
 .cpin:focus { outline: none; }
 .zmap { position: relative; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-.zmap-vp { overflow: hidden; border-radius: 8px; cursor: grab; touch-action: none; }
+.zmap-vp { overflow: hidden; border-radius: 8px; cursor: default; touch-action: pan-y; }
 .zmap-vp.grabbing { cursor: grabbing; }
 .zmap-inner { position: relative; transform-origin: 0 0; }
 .zmap-inner > img { width: 100%; display: block; -webkit-user-drag: none; user-select: none; }
@@ -184,6 +184,11 @@ td.num, th.num { text-align: right; }
   .footer-team { flex-direction: column; align-items: center; gap: 30px; }
   .embed-map-wrap iframe { height: 320px; }
   .toc-nav a { font-size: 10px; padding: 10px 7px; }
+  .zmap-ctrl button { width: 40px; height: 40px; font-size: 20px; }
+  .cpin { width: 34px; height: 34px; }
+  .cpin .lbl { max-width: 168px; font-size: 11px; }
+  .table-scroll { -webkit-overflow-scrolling: touch; }
+  .inv-split, .loc-grid { gap: 20px; }
 }
 @media (max-width: 420px) {
   .cover-title { font-size: 28px; } .cover-stat-value { font-size: 22px; }
@@ -768,7 +773,7 @@ window.addEventListener('scroll', updateActiveTocLink); updateActiveTocLink();
       tx=Math.min(0,Math.max(w-w*scale,tx));
       ty=Math.min(0,Math.max(h-inner.offsetHeight*scale,ty));
     }
-    function apply(){ clamp(); inner.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
+    function apply(){ clamp(); inner.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; vp.style.touchAction=scale>1?'none':'pan-y'; vp.style.cursor=scale>1?'grab':'default'; }
     function zoomAt(f,cx,cy){
       var ns=Math.min(max,Math.max(1,scale*f)); if(ns===scale)return;
       tx=cx-(cx-tx)*(ns/scale); ty=cy-(cy-ty)*(ns/scale); scale=ns; apply();
