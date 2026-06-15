@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.6; background: #fff; }
@@ -141,6 +143,9 @@ td.num, th.num { text-align: right; }
 .embed-map-wrap { position: relative; width: 100%; margin-bottom: 24px; border-radius: 8px; overflow: hidden; }
 .embed-map-wrap iframe { display: block; width: 100%; height: 420px; border: 0; }
 .pending-note { font-size: 12px; color: #6B7280; font-style: italic; margin: 8px 0 20px; }
+.print-only-map { display: none; }
+.leaflet-popup-content { font-family: 'Inter', sans-serif; font-size: 12px; line-height: 1.5; }
+.leaflet-container { font-family: 'Inter', sans-serif; }
 .page-break-marker { height: 4px; background: repeating-linear-gradient(90deg, #ddd 0, #ddd 8px, transparent 8px, transparent 16px); max-width: 1100px; margin: 0 auto; }
 .footer { background: #1B3A5C; color: #fff; padding: 50px 40px; text-align: center; }
 .footer-logo { width: 200px; margin-bottom: 30px; }
@@ -178,7 +183,8 @@ td.num, th.num { text-align: right; }
 @media print {
   @page { size: letter landscape; margin: 0.4in 0.5in; }
   body { font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .toc-nav, .embed-map-wrap, .page-break-marker { display: none !important; }
+  .toc-nav, .embed-map-wrap, .page-break-marker, #map-comps, #map-loc { display: none !important; }
+  .print-only-map { display: block !important; width: 100%; height: auto; border-radius: 4px; }
   .cover { min-height: 7.5in; page-break-after: always; }
   .cover-headshots { display: flex !important; }
   .section { padding: 20px 0; page-break-before: always; }
@@ -393,8 +399,9 @@ td.num, th.num { text-align: right; }
       <p class="pending-note">Median HH income and demographic detail to be confirmed prior to launch.</p>
     </div>
   </div>
-  <div style="border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-top:24px;"><img src="images/loc_map.png" alt="Location map - 4942 Topanga Canyon Blvd, Woodland Hills" style="width:100%;display:block;"></div>
-  <p style="font-size:10px;color:#999;margin:6px 0 0;">Map data &copy; OpenStreetMap contributors, &copy; CARTO.</p>
+  <div id="map-loc" style="height:430px;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-top:24px;"></div>
+  <img src="images/loc_map.png" class="print-only-map" alt="Location map" style="margin-top:24px;">
+  <p style="font-size:10px;color:#999;margin:6px 0 0;"><strong>Click the marker</strong> for the address; use +/&minus; to zoom in or out.</p>
 </div>
 
 <!-- PROPERTY DETAILS -->
@@ -463,7 +470,8 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Sale Comparables</div>
   <div class="section-subtitle">Recent Sold New-Construction Four-Unit Properties</div>
   <div class="section-divider"></div>
-  <div style="border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-bottom:10px;"><img src="images/comp_map.png" alt="Combined map of subject, sale comps, on-market comps, and rent comps" style="width:100%;display:block;"></div>
+  <div id="map-comps" style="height:480px;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-bottom:10px;"></div>
+  <img src="images/comp_map.png" class="print-only-map" alt="Combined comparables map">
   <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:12px;color:#444;margin-bottom:4px;">
     <strong style="color:#1B3A5C;">Combined Comparables Map</strong>
     <span><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#C5A258;border:2px solid #1B3A5C;vertical-align:middle;margin-right:5px;"></span>Subject</span>
@@ -471,7 +479,7 @@ td.num, th.num { text-align: right; }
     <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#E0763C;vertical-align:middle;margin-right:5px;"></span>On-market comps (5)</span>
     <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2E8B57;vertical-align:middle;margin-right:5px;"></span>Rent comps (5)</span>
   </div>
-  <p style="font-size:10px;color:#999;margin:0 0 18px;">Map data &copy; OpenStreetMap contributors, &copy; CARTO. Marker positions approximate. Rent comps detailed in the Financial Analysis section; sale and on-market comps tabled below.</p>
+  <p style="font-size:10px;color:#999;margin:0 0 18px;"><strong>Click any marker</strong> to see its address &amp; details; use the +/&minus; buttons to zoom. Rent comps detailed in Financial Analysis; sale &amp; on-market comps tabled below.</p>
   <p class="narrative">The four most recent new-construction and newer-vintage four-unit sales across the San Fernando Valley form the valuation backbone. These are premium central- and east-Valley submarkets (Toluca Lake / North Hollywood); the subject's Woodland Hills basis is set at a measured discount to their per-unit median, reconciled against the West Valley active set below. As the combined map shows, the subject's <em>rental</em> market is intensely local (the green Woodland Hills rent comps cluster around the site), while the strongest new-construction <em>sale</em> evidence sits in the central Valley.</p>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Submarket</th><th class="num">Yr</th><th class="num">Sale Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">Cap</th><th class="num">Sold</th></tr></thead>
@@ -700,6 +708,49 @@ function updateActiveTocLink() {
   tocLinks.forEach(function(l) { l.classList.remove('toc-active'); }); if (cur) cur.classList.add('toc-active');
 }
 window.addEventListener('scroll', updateActiveTocLink); updateActiveTocLink();
+</script>
+
+<script>
+(function(){
+  if (typeof L === 'undefined') return;
+  var TILE='https://{s}.basemap.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  var ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  var GOLD='#C5A258', NAVY='#1B3A5C', ORANGE='#E0763C', GREEN='#2E8B57';
+  function style(color,r){ return {radius:r, fillColor:color, color:'#fff', weight:2, opacity:1, fillOpacity:1}; }
+  var SUBJECT=[34.158119,-118.605716];
+  // [lat, lon, color, radius, popupHTML]
+  var pts=[
+    [34.157434,-118.364036,NAVY,9,'<b>Sale &middot; 10706 Camarillo St</b><br>Toluca Lake &middot; 2017<br>$2,800,000 &middot; $700,000/unit &middot; 5.37% cap'],
+    [34.173050,-118.363683,NAVY,9,'<b>Sale &middot; 5648 Cartwright Ave</b><br>North Hollywood &middot; 2025<br>$2,775,000 &middot; $693,750/unit &middot; 5.82% cap'],
+    [34.172698,-118.362549,NAVY,9,'<b>Sale &middot; 5626 Willowcrest Ave</b><br>North Hollywood &middot; 2017<br>$2,525,000 &middot; $631,250/unit &middot; 4.93% cap'],
+    [34.169743,-118.380510,NAVY,9,'<b>Sale &middot; 11447 Cumpston St</b><br>North Hollywood &middot; 2025<br>$3,350,000 &middot; $837,500/unit &middot; 5.09% cap'],
+    [34.178573,-118.606555,ORANGE,9,'<b>On-Market &middot; 6420-6422 Hanna Ave</b><br>Woodland Hills &middot; 2025<br>$2,525,000 &middot; $631,250/unit &middot; Active (MMI OM)'],
+    [34.174708,-118.372031,ORANGE,9,'<b>On-Market &middot; 5743 Case Ave</b><br>North Hollywood &middot; 2018<br>$2,400,000 &middot; $600,000/unit &middot; Pending'],
+    [34.172300,-118.362549,ORANGE,9,'<b>On-Market &middot; 5622 Willowcrest Ave</b><br>North Hollywood &middot; 2025<br>$2,250,000 &middot; $562,500/unit &middot; Pending'],
+    [34.215697,-118.557064,ORANGE,9,'<b>On-Market &middot; 19453 Strathern St</b><br>Reseda &middot; 2026<br>$2,495,000 &middot; $623,750/unit &middot; Active'],
+    [34.175334,-118.457205,ORANGE,9,'<b>On-Market &middot; 5750 Kester Ave</b><br>Van Nuys &middot; 2021<br>$3,460,000 &middot; $865,000/unit &middot; Active'],
+    [34.167681,-118.606890,GREEN,8,'<b>Rent &middot; 22041 Costanso St</b><br>Woodland Hills<br>3BR/2.5BA &middot; 1,624 SF &middot; $4,300/mo'],
+    [34.175240,-118.603201,GREEN,8,'<b>Rent &middot; 21820 Marylee St</b><br>Woodland Hills<br>3BR/3BA &middot; 1,459 SF &middot; $3,900/mo'],
+    [34.149951,-118.624972,GREEN,8,'<b>Rent &middot; 4406 Coloma Ave</b><br>Woodland Hills<br>2BR/2BA &middot; 830 SF &middot; $3,395/mo'],
+    [34.187553,-118.564931,GREEN,8,'<b>Rent &middot; 19803 Gilmore St</b><br>Woodland Hills<br>2BR/2BA &middot; 1,000 SF &middot; $3,750/mo'],
+    [34.178186,-118.631967,GREEN,8,'<b>Rent &middot; 5946 Woodlake Ave</b><br>Woodland Hills<br>2BR/2BA &middot; 883 SF &middot; $2,900/mo']
+  ];
+  var SUBJECT_POPUP='<b>SUBJECT &mdash; 4942 N Topanga Canyon Blvd</b><br>Woodland Hills, CA 91364<br>New 2026 &middot; Duplex + 2 ADUs (4 units)<br>Suggested $2,600,000 &middot; 5.45% cap';
+
+  // Combined comps map
+  var mc=L.map('map-comps',{scrollWheelZoom:false});
+  L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:20}).addTo(mc);
+  var group=[];
+  pts.forEach(function(p){ group.push(L.circleMarker([p[0],p[1]],style(p[2],p[3])).bindPopup(p[4]).addTo(mc)); });
+  var subj=L.circleMarker(SUBJECT,style(GOLD,12)).bindPopup(SUBJECT_POPUP).addTo(mc);
+  subj.setStyle({color:NAVY,weight:3}); group.push(subj);
+  mc.fitBounds(L.featureGroup(group).getBounds().pad(0.12));
+
+  // Subject location map (zoomed in)
+  var ml=L.map('map-loc',{scrollWheelZoom:false}).setView(SUBJECT,16);
+  L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:20}).addTo(ml);
+  L.circleMarker(SUBJECT,style(GOLD,13)).setStyle({color:NAVY,weight:3}).bindPopup(SUBJECT_POPUP).addTo(ml).openPopup();
+})();
 </script>
 </body>
 </html>
